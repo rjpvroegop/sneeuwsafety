@@ -1,104 +1,140 @@
-$(document).ready(function(){
-    init();
-});
-
-var start = 0;
-var end = 0;
-var pieper = 0;
-var schep = 0;
-var sonde = 0;
-var tas = 0;
-var tasMee = false;
+var pieper = false;
+var shovel = false;
+var sonde = false;
+var bag = false;
+var startdatum = '';
+var einddatum = '';
+var bedragen = {
+    pieper:4,
+    shovel:0.5,
+    sonde:0.5,
+    bag:0.5,
+    send:7.5
+}
 var dagen = 1;
-var borg = 0;
-var verzend = 7.5;
-var sub = function(){return (pieper + schep + sonde + tas) * dagen};
-var total = function(){return ((pieper + schep + sonde + tas) * dagen) + verzend};
 var startPicker = startDatepicker.pickadate('picker')
 var endPicker = endDatePicker.pickadate('picker')
 
-
-function init(){
+$(document).ready(function(){
     var now = new Date(Date.now);
     startPicker.set('select', now);
     endPicker.set('select', now);
+    $('.gegevens').hide();
+    showorhideshop();
+    update_shop();
 
     $('.picker__holder').click(function(){
-        start = new Date(startPicker.get('select', 'yyyy/mm/dd'));
-        end = new Date(endPicker.get('select', 'yyyy/mm/dd'));
+        startdatum = new Date(startPicker.get('select', 'yyyy/mm/dd'));
+        einddatum = new Date(endPicker.get('select', 'yyyy/mm/dd'));
         var msToDays = (function(timeMs){return timeMs  / 1000 / 60 / 60 / 24 + 1});
 
-        var msNegative = start - end; //negative value
+        var msNegative = startdatum - einddatum; //negative value
         var ms = msNegative * -1; // positive value
         dagen = msToDays(ms);
+        update_shop();
+    });
 
-        show();
+    $('.no').click(function(){
+        console.log($(this).attr("data-rental"));
+        $("div[data-rental*="+ $(this).attr("data-rental") +"]").removeClass('selected')
+        $(this).addClass('selected');
 
-        console.log(dagen);
-    })
-}
+        if($(this).attr("data-rental") == 'pieper'){
+            pieper = false;
+        } else if( $(this).attr("data-rental") == 'shovel'){
+            shovel = false;
+        } else if ($(this).attr("data-rental") == 'sonde'){
+            sonde = false;
+        } else {
+            bag = false;
+        }
 
-function show(){
-    if(tasMee)
-        pieper != 0 && sonde != 0 && schep != 0 ? tas = 0 : tas = 0.5;
+        update_shop();
+    });
+
+    $('.yes').click(function(){
+        console.log($(this).attr("data-rental"));
+        $("div[data-rental*="+ $(this).attr("data-rental") +"]").removeClass('selected')
+        $(this).addClass('selected');
+
+        if($(this).attr("data-rental") == 'pieper'){
+            pieper = true;
+        } else if( $(this).attr("data-rental") == 'shovel'){
+            shovel = true;
+        } else if ($(this).attr("data-rental") == 'sonde'){
+            sonde = true;
+        } else {
+            bag = true;
+        }
+        update_shop();
+    });
+
+});
+
+function update_shop(){
+    if(pieper)
+        $('.beacon .right').html('&euro;' + (dagen * bedragen.pieper).toFixed(2));
     else
-        tas = 0;
+        $('.beacon .right').html('&euro;0');
+    if(shovel)
+        $('.shovel .right').html('&euro;' + (dagen * bedragen.shovel).toFixed(2));
+    else
+        $('.shovel .right').html('&euro;0');
+    if(sonde)
+        $('.sondeerstok .right').html('&euro;' + (dagen * bedragen.sonde).toFixed(2));
+    else
+        $('.sondeerstok .right').html('&euro;0');
+    if(bag)
+        $('.backpack .right').html('&euro;' + (dagen * bedragen.bag).toFixed(2));
+    else
+        $('.backpack .right').html('&euro;0');
 
-    $('.overzicht .beacon .right').html('&euro;' + (pieper * dagen).toFixed(2));
-    $('.overzicht .sondeerstok .right').html('&euro;' + (sonde * dagen).toFixed(2));
-    $('.overzicht .shuffle .right').html('&euro;' + (schep * dagen).toFixed(2));
-    $('.overzicht .backpack .right').html('&euro;' + (tas * dagen).toFixed(2));
-    $('.overzicht .verzendkosten .right').html('&euro;' + (verzend).toFixed(2));
-    $('.overzicht .borg .right').html('&euro;' + (borg).toFixed(2));
-    $('.overzicht .subtotaal .right').html('&euro;' + sub().toFixed(2));
-    $('.overzicht .totaal .right').html('&euro;' + total().toFixed(2));
+    $('.dagen .right').html(dagen);
 
-    (pieper != 0 ? $('.overzicht .beacon').slideDown() : $('.overzicht .beacon').slideUp());
-    (sonde != 0 ? $('.overzicht .sondeerstok').slideDown() : $('.overzicht .sondeerstok').slideUp());
-    (schep != 0 ? $('.overzicht .shuffle').slideDown() : $('.overzicht .shuffle').slideUp());
+    $('.subtotaal .right').html('&euro;' + subtotaal().toFixed(2));
 
-    $('.overzicht .verzendkosten').slideDown();
-    $('.overzicht .borg').slideDown();
+    $('.verzendkosten .right').html('&euro;' + bedragen.send.toFixed(2));
+
+    $('.borg .right').html('&euro;' + borg().toFixed(2));
+
+    $('.totaal .right').html('&euro;' + totaal().toFixed(2));
+
+    showorhideshop();
 }
 
-function toggle_beacon(checker){
-    if(checker.checked) {
-        borg += 150;
-        pieper = 4;
-    }
-    else {
-        borg -= 150;
-        pieper = 0;
-    }
-    show();
+function showorhideshop(){
+    (pieper ? $('.beacon').slideDown() : $('.beacon').slideUp());
+    (shovel ? $('.shovel').slideDown() : $('.shovel').slideUp());
+    (sonde ? $('.sondeerstok').slideDown() : $('.sondeerstok').slideUp());
+    (bag ? $('.backpack').slideDown() : $('.backpack').slideUp());
+
+    (pieper || shovel || sonde ?
+        $('.borg').slideDown() && $('.verzendkosten').slideDown() :
+        $('.borg').slideUp() && $('.verzendkosten').slideUp())
 }
 
-function toggle_backpack(checker){
-    tasMee = checker.checked;
-    show();
-    (checker.checked ? $('.overzicht .backpack').slideDown() : $('.overzicht .backpack').slideUp());
-}
+var subtotaal = (function(){
+    var value =
+        (pieper ? bedragen.pieper * dagen : 0) +
+        (shovel ? bedragen.shovel * dagen : 0) +
+        (sonde ? bedragen.sonde * dagen : 0) +
+        (bag ? bedragen.bag * dagen : 0);
 
-function toggle_sondeerstok(checker){
-    if(checker.checked) {
-        borg += 20;
-        sonde = 0.5;
-    }
-    else {
-        borg -= 20;
-        sonde = 0;
-    }
-    show();
-}
+    return value;
+})
 
-function toggle_shuffle(checker){
-    if(checker.checked) {
-        borg += 20;
-        schep = 0.5;
-    }
-    else {
-        borg -= 20;
-        schep = 0;
-    }
-    show();
-}
+var totaal = (function(){
+    var value = subtotaal() +
+        (pieper || shovel || sonde || bag ? bedragen.send : 0);
+
+    return value;
+})
+
+var borg = (function(){
+    var value =
+        (pieper ? 150 : 0) +
+        (shovel ? 25 : 0) +
+        (sonde ? 25 : 0);
+
+    return value;
+})

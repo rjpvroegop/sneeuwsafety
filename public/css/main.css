@@ -1,5 +1,6 @@
 body {
     background-color:white;
+    background:url('../img/bg.png') repeat;
 }
 
 .parallax-container {
@@ -14,4 +15,8 @@ body {
 
 .picker {
     z-index:1;
+}
+
+#nav-mobile{
+    background:url('../img/b25.png') white;
 }
