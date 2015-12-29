@@ -1,0 +1,17 @@
+body {
+    background-color:white;
+}
+
+.parallax-container {
+    height: 400px;
+}
+
+@media (min-width: 992px) {
+    main {
+        margin-left:240px;
+    }
+}
+
+.picker {
+    z-index:1;
+}

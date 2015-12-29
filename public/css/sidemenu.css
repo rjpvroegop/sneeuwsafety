@@ -1,0 +1,25 @@
+header > .container {
+    position:fixed;
+    top:22px;
+    left:50px;
+}
+
+li.no-bg:hover {
+    background-color:white;
+}
+
+.side-nav .collapsible-body li.active, .side-nav.fixed .collapsible-body li.active{
+    background-color:#37474f;
+}
+
+.logo-text{
+    margin:0;
+    line-height:30px;
+    font-size:25px;
+}
+
+.mdi-navigation-menu {
+    font-size:25px;
+    color:black;
+    padding:10px;
+}
