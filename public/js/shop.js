@@ -228,6 +228,11 @@ var sendForm = (function(){
     huisnummer || $('#huisnummer').css({background:'pink'});
     toevoeging || $('#toevoeging').css({background:'pink'});
 
+    if(!sonde && !shovel && !pieper && bag)
+        Materialize.toast('Helaas verhuren wij geen losse tas.', 4000)
+    if(!sonde && !shovel && !pieper)
+        Materialize.toast('Selecteert u alstublieft een product.', 4000)
+
     if(naam && mail && telefoon && straat && postcode && huisnummer && plaats && (
             shovel || sonde || pieper)) {
         $.ajax({
