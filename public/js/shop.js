@@ -39,6 +39,7 @@ function initshop(){
     startdatum = new Date(startPicker.get('select', 'yyyy/mm/dd'));
     einddatum = new Date(endPicker.get('select', 'yyyy/mm/dd'));
     $('.gegevens').hide();
+    $('#bedankt').hide();
     showorhideshop();
     update_shop();
 
@@ -247,6 +248,10 @@ var sendForm = (function(){
             .fail(function (data) {
                 console.log(data);
             })
+
+        $('#huren').slideUp();
+        $('#Overzicht').slideUp();
+        $('#bedankt').slideDown();
     }
 });
 

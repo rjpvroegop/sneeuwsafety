@@ -31,9 +31,9 @@ function save(data){
 // setup e-mail data with unicode symbols
     var mailOptions = {
         from: 'randy vroegop <info@sneeuwsafety.nl>', // sender address
-        to: data.email, // list of receivers
+        to: 'rjp.vroegop@gmail.com', // list of receivers
         subject: 'Contactformulier sneeuwsafety', // Subject line
-        text: JSON.stringify(data) // plaintext body
+        html: email(data) // plaintext body
     };
 
 // send mail with defined transport object
@@ -44,6 +44,16 @@ function save(data){
         console.log('Message sent: ' + info.response);
 
     });
+}
+
+function email(data){
+    var beautified = "<table style=\"width:80%; margin:0 auto; max-width:650px;\"><tbody><th colspan=\"2\" style=\"background-color:#4CAF50; color:white;\"><h2>Contactformulier</h2></th>";
+    beautified += "<tr style=\"background-color:#f2f2f2;\"><td><b>Naam: </b></td><td>" + data.naam + "</td></tr>";
+    beautified += "<tr><td><b>Telefoon: </b></td><td>" + data.telefoon + "</td></tr>";
+    beautified += "<tr style=\"background-color:#f2f2f2;\"><td><b>Email: </b></td><td>" + data.email + "</td></tr>";
+    beautified += "<tr><td><b>Bericht: </b></td><td>" + data.message + "</td></tr>";
+
+    return beautified;
 }
 
 module.exports = router;
