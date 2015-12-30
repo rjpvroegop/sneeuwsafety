@@ -10,6 +10,7 @@ var discount = false;
 var startdatum = '';
 var einddatum = '';
 var dagen = 1;
+var tweePers = $('#personen').prop('checked');
 
 var naam = '';
 var straat = '';
@@ -50,6 +51,11 @@ function initshop(){
 
     $('.yes').click(function(){
         activate($(this));
+    });
+
+    $('#personen').click(function() {
+        tweePers = $(this).prop('checked');
+        update_shop();
     });
 }
 
@@ -104,6 +110,8 @@ function deactivate(selector){
 }
 
 function update_shop(){
+
+    $('.discount .right').html('-&euro;' + (0.5 * (tweePers ? 2 : 1)).toFixed(2));
     if (pieper && shovel && bag && sonde){
         $('.discount').slideDown();
     } else {
@@ -111,19 +119,19 @@ function update_shop(){
     }
 
     if(pieper)
-        $('.beacon .right').html('&euro;' + (dagen * bedragen.pieper).toFixed(2));
+        $('.beacon .right').html('&euro;' + (dagen * bedragen.pieper * (tweePers ? 2 : 1)).toFixed(2));
     else
         $('.beacon .right').html('&euro;0');
     if(shovel)
-        $('.shovel .right').html('&euro;' + (dagen * bedragen.shovel).toFixed(2));
+        $('.shovel .right').html('&euro;' + (dagen * bedragen.shovel * (tweePers ? 2 : 1)).toFixed(2));
     else
         $('.shovel .right').html('&euro;0');
     if(sonde)
-        $('.sondeerstok .right').html('&euro;' + (dagen * bedragen.sonde).toFixed(2));
+        $('.sondeerstok .right').html('&euro;' + (dagen * bedragen.sonde * (tweePers ? 2 : 1)).toFixed(2));
     else
         $('.sondeerstok .right').html('&euro;0');
     if(bag)
-        $('.backpack .right').html('&euro;' + (dagen * bedragen.bag).toFixed(2));
+        $('.backpack .right').html('&euro;' + (dagen * bedragen.bag * (tweePers ? 2 : 1)).toFixed(2));
     else
         $('.backpack .right').html('&euro;0');
 
@@ -162,13 +170,13 @@ var subtotaal = (function(){
         (sonde ? bedragen.sonde * dagen : 0) +
         (bag ? bedragen.bag * dagen : 0);
 
-    return value;
+    return value * (tweePers ? 2 : 1);
 });
 
 var totaal = (function(){
     var value = subtotaal() +
         (pieper || shovel || sonde || bag ? bedragen.send : 0) +
-        (discount ? -0.5 : 0);
+        (discount ? (-0.5 * (tweePers ? 2 : 1)) : 0);
 
     return value;
 });
@@ -179,7 +187,7 @@ var borg = (function(){
         (shovel ? 25 : 0) +
         (sonde ? 25 : 0);
 
-    return value;
+    return value * (tweePers ? 2 : 1);
 });
 
 
@@ -207,7 +215,7 @@ var sendForm = (function(){
         naam:naam, email:mail, telefoon:telefoon,
         straat:straat, postcode:postcode, huisnummer:huisnummer,
         toevoeging:toevoeging, schep:shovel, pieper:pieper, sonde:sonde,
-        tas:bag, start:startdatum, eind:einddatum
+        tas:bag, start:startdatum, eind:einddatum, tweePers:(tweePers ? 2 : 1)
     };
 
     mail || $('#orderemail').css({background:'pink'});
