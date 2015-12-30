@@ -19,6 +19,7 @@ router.get('/', function(req, res, next) {
     var straat = getURLParameter('straat', req.url);
     var postcode = getURLParameter('postcode', req.url);
     var huisnummer = getURLParameter('huisnummer', req.url);
+    var plaats = getURLParameter('plaats', req.url);
     var toevoeging = getURLParameter('toevoeging', req.url);
     var tas = getURLParameter('tas', req.url);
     var pieper = getURLParameter('pieper', req.url);
@@ -27,10 +28,13 @@ router.get('/', function(req, res, next) {
     var start = new Date(getURLParameter('start', req.url));
     var eind = new Date(getURLParameter('eind', req.url));
     var dagen = days(start, eind);
+    var tweePers = getURLParameter('tweePers', req.url);;
 
     var data = {naam:naam,email:email,telefoon:telefoon,straat:straat,postcode:postcode,huisnummer:huisnummer,toevoeging:toevoeging
         ,tas:tas,pieper:pieper,sonde:sonde,schep:schep,start:start,eind:eind
-        ,dagen:dagen}
+        ,dagen:dagen, plaats:plaats, personen:tweePers}
+
+    console.log(data);
 
     if(naam && email && telefoon && straat && postcode && huisnummer && (schep || sonde || pieper) && start && eind && dagen)
         res.jsonp({success:true})
@@ -49,12 +53,13 @@ function days(start, eind){
 
 function saveOrder(data){
 
+    data = mailMarkup(data);
 // setup e-mail data with unicode symbols
     var mailOptions = {
         from: 'randy vroegop <info@sneeuwsafety.nl>', // sender address
         to: data.email, // list of receivers
-        subject: 'ORDER GEPLAATST sneeuwsafety', // Subject line
-        text: JSON.stringify(data) // plaintext body
+        subject: data.subject, // Subject line
+        html: data.message // plaintext body
     };
 
 // send mail with defined transport object
@@ -64,6 +69,98 @@ function saveOrder(data){
         }
         console.log('Message sent: ' + info.response);
     });
+}
+
+function mailMarkup(data){
+    var beautified = {}
+
+    var bedragen = {
+        pieper:4,
+        shovel:0.5,
+        sonde:0.5,
+        bag:0.5,
+        send:7.5,
+        korting:0.5
+    };
+
+    var kosten = {
+        pieper:0,
+        schep:0,
+        sonde:0,
+        tas:0,
+        korting:0,
+        borg: 0,
+        send:bedragen.send
+    }
+
+    if(data.pieper == 'true'){
+        kosten.pieper = bedragen.pieper * data.dagen * data.personen;
+        kosten.borg += 150 * data.personen;
+    }
+    if(data.schep == 'true'){
+        kosten.schep = bedragen.shovel * data.dagen * data.personen;
+        kosten.borg += 25 * data.personen;
+    }
+    if(data.sonde == 'true'){
+        kosten.sonde = bedragen.sonde * data.dagen * data.personen;
+        kosten.borg += 25 * data.personen;
+    }
+    if(data.tas == 'true'){
+        kosten.tas = bedragen.bag * data.dagen * data.personen;
+    }
+    if(data.pieper == 'true' && data.schep == 'true' && data.sonde == 'true' && data.tas == 'true'){
+        kosten.korting = bedragen.korting * data.dagen * data.personen;
+    }
+    kosten.totaal = kosten.pieper + kosten.schep + kosten.sonde + kosten.tas + kosten.borg + kosten.send - kosten.korting;
+
+
+    beautified.email = data.email + " , rjp.vroegop@gmail.com";
+    beautified.subject = "Order Geplaatst -- sneeuwsafety -- " + data.email;
+
+    beautified.message += "<table style=\"width:80%; max-width:450px;\"><tbody><th colspan=\"2\" style=\"background-color:#4CAF50; color:white;\"><h1>Uw bestelling bij Sneeuwsafety.nl</h1><img width=\"300px\" style=\"margin:0 auto;\" src=\"http://www.clipartbest.com/cliparts/jcx/o5b/jcxo5bAyi.png\" /></th></tbody></table>";
+
+    beautified.message += "<table style=\"width:80%; max-width:450px;\"><tbody><th colspan=\"2\" style=\"background-color:#4CAF50; color:white;\"><h1>Order</h1></th>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Naam: </b></td><td><br>" + data.naam + "</td></tr>";
+    beautified.message += "<tr><td><b>email: </b></td><td><br>" + data.email + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>telefoon: </b></td><td><br>" + data.telefoon + "</td></tr>";
+    beautified.message += "<tr><td><b>postcode: </b></td><td><br>" + data.postcode + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>plaats: </b></td><td><br>" + data.plaats + "</td></tr>";
+    beautified.message += "<tr><td><b>huisnummer: </b></td><td><br>" + data.huisnummer + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>toevoeging: </b></td><td><br>" + data.toevoeging + "</td></tr></tbody></table>";
+
+    beautified.message += "<table style=\"width:80%; max-width:450px;\"><tbody><th colspan=\"2\" style=\"background-color:#4CAF50; color:white;\"><h1>Bestelling</h1></th>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Pieper: </b></td><td><br>" + (data.pieper == 'true' ? 'ja' : 'nee') + "</td></tr>";
+    beautified.message += "<tr><td><b>Schep: </b></td><td><br>" + (data.schep == 'true' ? 'ja' : 'nee') + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Sonde: </b></td><td><br>" + (data.sonde == 'true' ? 'ja' : 'nee') + "</td></tr>";
+    beautified.message += "<tr><td><b>Tas: </b></td><td><br>" + (data.tas == 'true' ? 'ja' : 'nee') + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Personen: </b></td><td><br>" + data.personen + "</td></tr></tbody></table>";
+
+    beautified.message += "<table style=\"width:80%; max-width:450px;\"><tbody><th colspan=\"2\" style=\"background-color:#4CAF50; color:white;\"><h1>Datum</h1></th>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Start: </b></td><td><br>" + new Date(data.start).toDateString() + "</td></tr>";
+    beautified.message += "<tr><td><b>Einde: </b></td><td><br>" + new Date(data.eind).toDateString() + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Dagen: </b></td><td><br>" + data.dagen + "</td></tr></tbody></table>";
+
+    beautified.message += "<table style=\"width:80%; max-width:450px;\"><tbody><th colspan=\"2\" style=\"background-color:#4CAF50; color:white;\"><h1>Overzicht</h1></th>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Pieper: </b></td><td>&euro; " + kosten.pieper.toFixed(2) + "</td></tr>";
+    beautified.message += "<tr><td><b>Schep: </b></td><td>&euro; " + kosten.schep.toFixed(2) + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Sonde: </b></td><td>&euro; " + kosten.sonde.toFixed(2) + "</td></tr>";
+    beautified.message += "<tr><td><b>Tas: </b></td><td>&euro; " + kosten.tas.toFixed(2) + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Korting: </b></td><td>&euro;" + kosten.korting.toFixed(2) + "</td></tr>";
+    beautified.message += "<tr><td><b>Verzendkosten: </b></td><td>&euro; " + kosten.send.toFixed(2) + "</td></tr>";
+    beautified.message += "<tr style=\"background-color:#f2f2f2;\"><td><b>Borg: </b></td><td>&euro; " + kosten.borg.toFixed(2) + "</td></tr>";
+    beautified.message += "<tr><td colspan=\"2\"><h1>Totaal: &euro; " + kosten.totaal.toFixed(2) + "</h1></td></tr></tbody></table>";
+
+
+
+
+    //{naam:naam,email:email,telefoon:telefoon,straat:straat,postcode:postcode,huisnummer:huisnummer,toevoeging:toevoeging
+    //    ,tas:tas,pieper:pieper,sonde:sonde,schep:schep,start:start,eind:eind
+    //    ,dagen:dagen}
+    return beautified;
+}
+
+function email(){
+
 }
 
 module.exports = router;

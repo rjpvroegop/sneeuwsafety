@@ -17,6 +17,7 @@ var straat = '';
 var postcode = '';
 var huisnummer = '';
 var toevoeging = '';
+var plaats = '';
 var mail = '';
 var telefoon = '';
 
@@ -111,7 +112,7 @@ function deactivate(selector){
 
 function update_shop(){
 
-    $('.discount .right').html('-&euro;' + (0.5 * (tweePers ? 2 : 1)).toFixed(2));
+    $('.discount .right').html('-&euro;' + (0.5 * (tweePers ? 2 : 1) * dagen).toFixed(2));
     if (pieper && shovel && bag && sonde){
         $('.discount').slideDown();
     } else {
@@ -176,7 +177,7 @@ var subtotaal = (function(){
 var totaal = (function(){
     var value = subtotaal() +
         (pieper || shovel || sonde || bag ? bedragen.send : 0) +
-        (discount ? (-0.5 * (tweePers ? 2 : 1)) : 0);
+        (discount ? (-0.5 * (tweePers ? 2 : 1) * dagen) : 0);
 
     return value;
 });
@@ -210,22 +211,24 @@ var sendForm = (function(){
     postcode = $('#postcode').val() || false;
     huisnummer = $('#huisnummer').val() || false;
     toevoeging = $('#toevoeging').val() || false;
+    plaats = $('#plaats').val() || false;
 
     var data = {
         naam:naam, email:mail, telefoon:telefoon,
         straat:straat, postcode:postcode, huisnummer:huisnummer,
-        toevoeging:toevoeging, schep:shovel, pieper:pieper, sonde:sonde,
+        toevoeging:toevoeging, plaats:plaats, schep:shovel, pieper:pieper, sonde:sonde,
         tas:bag, start:startdatum, eind:einddatum, tweePers:(tweePers ? 2 : 1)
     };
 
     mail || $('#orderemail').css({background:'pink'});
     telefoon || $('#telephone').css({background:'pink'});
     straat || $('#straat').css({background:'pink'});
+    plaats || $('#plaats').css({background:'pink'});
     postcode || $('#postcode').css({background:'pink'});
     huisnummer || $('#huisnummer').css({background:'pink'});
     toevoeging || $('#toevoeging').css({background:'pink'});
 
-    if(naam && mail && telefoon && straat && postcode && huisnummer && (
+    if(naam && mail && telefoon && straat && postcode && huisnummer && plaats && (
             shovel || sonde || pieper)) {
         $.ajax({
             method: "GET",
