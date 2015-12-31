@@ -13,10 +13,27 @@ body {
     }
 }
 
+@media (max-width: 600px) {
+    h2.header {
+        font-size: 2rem;
+    }
+}
+
 .picker {
     z-index:1;
 }
 
 #nav-mobile{
     background:url('../img/b25.png') white;
+}
+
+.contact_sidebar{
+    padding: 0 15px;
+}
+
+@media (min-height: 500px) {
+    .contact_sidebar {
+        position: absolute;
+        bottom: 100px;
+    }
 }

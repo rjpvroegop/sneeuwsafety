@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col s12 m12 l6">
             <div class="datums">
-                <h3 class="header">Periode</h3>
+                <h3 class="header">Huurperiode</h3>
                 <ul>
                     <li class="collection-item">
                         <div>Begindatum
@@ -36,51 +36,43 @@
                         </div>
                         <div class="input-field col s6">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="achternaam" type="tel" class="validate">
+                            <input id="achternaam" type="text" class="validate">
                             <label for="achternaam">Achternaam</label>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class=" material-icons  prefix">language</i>
                                 <input id="orderemail" type="email" class="validate">
-                                <label for="orderemail">Email</label>
+                                <label for="orderemail">Emailadres</label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s6">
-                            <i class="material-icons prefix">phone</i>
                             <input id="telephone" type="tel" class="validate">
-                            <label for="telephone">Telephone</label>
+                            <label for="telephone">Telefoonnummer</label>
                         </div>
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">S</i>
-                            <input id="straat" type="tel" class="validate">
-                            <label for="straat">Straat</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s6">
-                            <i class="material-icons prefix">P</i>
-                            <input id="postcode" type="tel" class="validate">
-                            <label for="postcode">Postcode</label>
-                        </div>
-                        <div class="input-field col s4">
-                            <i class="material-icons prefix">H</i>
-                            <input id="huisnummer" type="tel" class="validate">
-                            <label for="huisnummer">Huisnummer</label>
-                        </div>
-                        <div class="input-field col s2">
-                            <i class="material-icons prefix">T</i>
-                            <input id="toevoeging" type="tel" class="validate">
-                            <label for="toevoeging">Toevoeging</label>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <i class="material-icons prefix">T</i>
-                            <input id="plaats" type="tel" class="validate">
-                            <label for="plaats">Plaats</label>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input id="straat" type="text" class="validate">
+                                <label for="straat">Straat</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="huisnummer" type="tel" class="validate">
+                                <label for="huisnummer">Huisnummer</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="toevoeging" type="text" class="validate">
+                                <label for="toevoeging">Toevoeging</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="postcode" type="text" class="validate">
+                                <label for="postcode">Postcode</label>
+                            </div>
+                            <div class="input-field col s6">
+                                <input id="plaats" type="text" class="validate">
+                                <label for="plaats">Woonplaats</label>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -94,26 +86,38 @@
         </div>
 
         <div class="col s12 m12 l6">
-            <h3 class="header">Overzicht</h3>
+            <h3 class="header">Prijsoverzicht</h3>
 
             <ul class="collection overzicht">
                 <li class="collection-item beacon">
-                    <div>Lawinepieper
+                    <div>
+                        &nbsp;
+                        <i data-rental="pieper" class="left material-icons prefix shoppingcart blue-text teal-text lighten-2 no">close</i>
+                        <div class="left">Lawinepieper</div>
                         <div class="right">&euro;0</div>
                     </div>
                 </li>
                 <li class="collection-item shovel">
-                    <div>Sneeuwschep
+                    <div>
+                        &nbsp;
+                        <i data-rental="shovel" class="left material-icons prefix shoppingcart blue-text teal-text lighten-2 no">close</i>
+                        <div class="left">Sneeuwschep</div>
                         <div class="right">&euro;0</div>
                     </div>
                 </li>
                 <li class="collection-item sondeerstok">
-                    <div>Sondeerstok
+                    <div>
+                        &nbsp;
+                        <i data-rental="sonde" class="left material-icons prefix shoppingcart blue-text teal-text lighten-2 no">close</i>
+                        <div class="left">Sondeerstok</div>
                         <div class="right">&euro;0</div>
                     </div>
                 </li>
                 <li class="collection-item backpack">
-                    <div>Burton tas
+                    <div>
+                        &nbsp;
+                        <i data-rental="bag" class="left material-icons prefix shoppingcart blue-text teal-text lighten-2 no">close</i>
+                        <div class="left">Gearbag</div>
                         <div class="right">&euro;0</div>
                     </div>
                 </li>

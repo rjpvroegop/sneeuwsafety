@@ -120,22 +120,46 @@ function update_shop(){
         $('.discount').slideUp();
     }
 
-    if(pieper)
+    if(pieper) {
+        $('.pieper_card .shoppingcart').fadeOut(500, function(){
+            $(this).html('done').fadeIn(1000)
+        });
         $('.beacon .right').html('&euro;' + (dagen * bedragen.pieper * (tweePers ? 2 : 1)).toFixed(2));
-    else
+    }
+    else{
         $('.beacon .right').html('&euro;0');
-    if(shovel)
+        $('.pieper_card .shoppingcart').html('shopping_cart');
+}
+    if(shovel){
+        $('.shovel_card .shoppingcart').fadeOut(500, function(){
+            $(this).html('done').fadeIn(1000)
+        });
         $('.shovel .right').html('&euro;' + (dagen * bedragen.shovel * (tweePers ? 2 : 1)).toFixed(2));
-    else
+}
+    else{
         $('.shovel .right').html('&euro;0');
-    if(sonde)
+        $('.shovel_card .shoppingcart').html('shopping_cart');
+}
+    if(sonde){
+        $('.sonde_card .shoppingcart').fadeOut(500, function(){
+            $(this).html('done').fadeIn(1000)
+        });
         $('.sondeerstok .right').html('&euro;' + (dagen * bedragen.sonde * (tweePers ? 2 : 1)).toFixed(2));
-    else
+}
+    else{
         $('.sondeerstok .right').html('&euro;0');
-    if(bag)
+        $('.sonde_card .shoppingcart').html('shopping_cart');
+}
+    if(bag){
+        $('.bag_card .shoppingcart').fadeOut(500, function(){
+            $(this).html('done').fadeIn(1000)
+        });
         $('.backpack .right').html('&euro;' + (dagen * bedragen.bag * (tweePers ? 2 : 1)).toFixed(2));
-    else
+}
+    else {
         $('.backpack .right').html('&euro;0');
+        $('.bag_card .shoppingcart').html('shopping_cart');
+    }
 
     $('.dagen .right').html(dagen);
 

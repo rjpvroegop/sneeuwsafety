@@ -21,9 +21,10 @@
 }
 
 .meenemen .selector > div {
-    height:40px; width:80px;
+    height:40px; width:120px;
     display:inline-block;
     margin:0 10px;
+    padding-top:5px;
 
     background-color:#ccc;
     border:1px solid rgba(230, 230, 230 ,1);
@@ -55,4 +56,22 @@
 
 .datums button, .gegevens button {
     margin-top:20px;
+}
+
+
+.yes {
+    font-size:24px;
+    -webkit-transition: font-size 0.3s; /* Safari */
+    transition: font-size 0.3s;
+    cursor:pointer;
+}
+
+.no {
+    cursor:pointer;
+}
+.yes:hover {
+    cursor:pointer;
+    font-size:32px;
+    -webkit-transition: font-size 0.3s; /* Safari */
+    transition: font-size 0.3s;
 }
