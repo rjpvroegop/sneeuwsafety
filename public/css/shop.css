@@ -50,6 +50,11 @@
     background-color: #84c7c1;
 }
 
+.switch label .lever {
+    vertical-align: top;
+    margin-top: 15px;
+}
+
 .datums, .gegevens {
     margin-bottom:50px;
 }
@@ -58,18 +63,20 @@
     margin-top:20px;
 }
 
-
 .yes {
+    cursor:pointer;
+}
+
+.yes i{
     font-size:24px;
     -webkit-transition: font-size 0.3s; /* Safari */
     transition: font-size 0.3s;
-    cursor:pointer;
 }
 
 .no {
     cursor:pointer;
 }
-.yes:hover {
+.yes:hover i {
     cursor:pointer;
     font-size:32px;
     -webkit-transition: font-size 0.3s; /* Safari */

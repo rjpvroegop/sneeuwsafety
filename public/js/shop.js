@@ -57,6 +57,7 @@ function initshop(){
 
     $('#personen').click(function() {
         tweePers = $(this).prop('checked');
+        $('.personen .right').html(tweePers ? 2 : 1)
         update_shop();
     });
 }
@@ -73,7 +74,6 @@ function calculate_days(){
 }
 
 function activate(selector){
-    console.log(selector.attr("data-rental"));
     $("div[data-rental*="+ selector.attr("data-rental") +"]").removeClass('selected')
     selector.addClass('selected');
 
@@ -89,11 +89,10 @@ function activate(selector){
     if (pieper && shovel && bag && sonde){
         discount = true;
     }
-    update_shop();
+    update_shop(selector);
 }
 
 function deactivate(selector){
-    console.log(selector.attr("data-rental"));
     $("div[data-rental*="+ selector.attr("data-rental") +"]").removeClass('selected')
     selector.addClass('selected');
 
@@ -108,10 +107,16 @@ function deactivate(selector){
     }
     discount = false;
 
+    //find out what item was removed from cart, change the corresponding shop item
+    var data_rental = selector.attr("data-rental");
+    var data_selector = data_rental + '_card';
+    var data_elem = $('.' + data_selector).find("div[data-rental*="+ data_rental +"]");
+    updateShoppingcartIcon(data_elem, false);
+
     update_shop();
 }
 
-function update_shop(){
+function update_shop(selector){
 
     $('.discount .right').html('-&euro;' + (0.5 * (tweePers ? 2 : 1) * dagen).toFixed(2));
     if (pieper && shovel && bag && sonde){
@@ -120,45 +125,31 @@ function update_shop(){
         $('.discount').slideUp();
     }
 
+    updateShoppingcartIcon(selector, true);
+
     if(pieper) {
-        $('.pieper_card .shoppingcart').fadeOut(500, function(){
-            $(this).html('done').fadeIn(1000)
-        });
         $('.beacon .right').html('&euro;' + (dagen * bedragen.pieper * (tweePers ? 2 : 1)).toFixed(2));
     }
     else{
         $('.beacon .right').html('&euro;0');
-        $('.pieper_card .shoppingcart').html('shopping_cart');
 }
     if(shovel){
-        $('.shovel_card .shoppingcart').fadeOut(500, function(){
-            $(this).html('done').fadeIn(1000)
-        });
         $('.shovel .right').html('&euro;' + (dagen * bedragen.shovel * (tweePers ? 2 : 1)).toFixed(2));
-}
+    }
     else{
         $('.shovel .right').html('&euro;0');
-        $('.shovel_card .shoppingcart').html('shopping_cart');
-}
+    }
     if(sonde){
-        $('.sonde_card .shoppingcart').fadeOut(500, function(){
-            $(this).html('done').fadeIn(1000)
-        });
         $('.sondeerstok .right').html('&euro;' + (dagen * bedragen.sonde * (tweePers ? 2 : 1)).toFixed(2));
-}
+    }
     else{
         $('.sondeerstok .right').html('&euro;0');
-        $('.sonde_card .shoppingcart').html('shopping_cart');
-}
+    }
     if(bag){
-        $('.bag_card .shoppingcart').fadeOut(500, function(){
-            $(this).html('done').fadeIn(1000)
-        });
         $('.backpack .right').html('&euro;' + (dagen * bedragen.bag * (tweePers ? 2 : 1)).toFixed(2));
 }
     else {
         $('.backpack .right').html('&euro;0');
-        $('.bag_card .shoppingcart').html('shopping_cart');
     }
 
     $('.dagen .right').html(dagen);
@@ -172,6 +163,22 @@ function update_shop(){
     $('.totaal .right').html('&euro;' + totaal().toFixed(2));
 
     showorhideshop();
+}
+
+function updateShoppingcartIcon(selector, add){
+    if(selector != undefined && add) {
+        selector.fadeOut(500, function () {
+            selector.find('.shoppingcart').html('done');
+            selector.find('p').html('toegevoegd')
+            selector.fadeIn();
+        });
+    } else if(selector != undefined){
+        selector.fadeOut(500, function () {
+            selector.find('.shoppingcart').html('shopping_cart');
+            selector.find('p').html('Toevoegen aan winkelwagen')
+            selector.fadeIn();
+        });
+    }
 }
 
 function showorhideshop(){

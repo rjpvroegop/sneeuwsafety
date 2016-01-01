@@ -11,14 +11,6 @@
                         <div>Einddatum
                             <i class="material-icons left">date_range</i><input type="date" class="datepicker_end" style="cursor:pointer">
                         </div>
-                        <div class="switch">
-                            <label>
-                                Een persoon
-                                <input id="personen" type="checkbox">
-                                <span class="lever"></span>
-                                Twee personen
-                            </label>
-                        </div>
                     </li>
                 </ul>
                 <button class="btn waves-effect waves-light" type="submit" name="action" onclick="$('.gegevens').slideDown(); $('.datums').slideUp();">Bestellen
@@ -86,7 +78,17 @@
         </div>
 
         <div class="col s12 m12 l6">
-            <h3 class="header">Prijsoverzicht</h3>
+            <h3 class="header">Prijsoverzicht
+
+                <div class="switch right">
+                    <label>
+                        <img src="img/person_1.png" height="35" />
+                        <input id="personen" type="checkbox">
+                        <span class="lever"></span>
+                        <img src="img/person_2.png" height="35" />
+                    </label>
+                </div>
+            </h3>
 
             <ul class="collection overzicht">
                 <li class="collection-item beacon">
@@ -123,6 +125,11 @@
                 </li>
                 <li class="collection-item dagen">
                     <div><i class="material-icons left">date_range</i>Aantal dagen
+                        <div class="right">0</div>
+                    </div>
+                </li>
+                <li class="collection-item personen">
+                    <div><i class="material-icons left">group</i>Aantal personen
                         <div class="right">0</div>
                     </div>
                 </li>

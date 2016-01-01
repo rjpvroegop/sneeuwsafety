@@ -1,126 +1,59 @@
+<%
+producten = [
+    pieper = {
+        product_image: 'img/pieps.jpg',
+        product_naam:"Lawinepieper",
+        product_prijs:"4,00",
+        product_aanbieding:"",
+        eigenschappen:[
+            "Uitgebreide check bij opstarten",
+            "Richting en afstand indicatie",
+            "3 antenne systeem voor exact zoeken",
+            "Intelligente zender: maximale ondersteuning tijdens zenden & IPROBE support"
+        ],
+        data_rental:"pieper"
+    },
+    sonde = {
+        product_image: 'img/sonde.jpg',
+        product_naam:"Sondeerstok",
+        product_prijs:"0,50",
+        product_aanbieding:"",
+        eigenschappen:[
+            "260CM",
+            "Aluminium",
+            "Snel uitklapbaar"
+        ],
+        data_rental:"sonde"
+    },
+    schep = {
+        product_image: 'img/shovel.jpg',
+        product_naam:"Lawine schep",
+        product_prijs:"0,50",
+        product_aanbieding:"",
+        eigenschappen:[
+            "Aluminium",
+            "Koppelbaar"
+        ],
+        data_rental:"shovel"
+    },
+    tas = {
+        product_image: 'img/bag.jpg',
+        product_naam:"Gearbag",
+        product_prijs:"0,50",
+        product_aanbieding:"Gratis als package deal!",
+        eigenschappen:[
+            "Stevige tas",
+            "Drie straps"
+        ],
+        data_rental:"bag"
+    }
+]
+%>
+
 <div id="huren" class="row shop scrollspy">
-    <div class="product pieper_card">
-        <div class="col s12 m6 l3">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/pieps.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Lawinepieper<i class="material-icons right">info</i></span>
-                    <p><b>&euro;4</b> per dag</p>
-                    <p>&nbsp;</p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Pieps DPS Sport<i class="material-icons right">close</i></span>
-                    <ul class="collection with-header">
-                        <li class="collection-header"><h5>Eigenschappen</h5></li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Uitgebreide check bij opstarten</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Richting en afstand indicatie</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> 3 antenne systeem voor exact zoeken</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Intelligente zender: maximale ondersteuning tijdens zenden & IPROBE support</li>
-                        <li class="collection-item"><p><b>&euro;4</b> per dag</p></li>
-                    </ul>
-                </div>
-                <div class="meenemen center">
-                    <div class="selector white-text">
-                        <i data-rental="pieper" class="material-icons prefix shoppingcart blue-text teal-text lighten-2 yes">shopping_cart</i>
-                    </div>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product shovel_card">
-        <div class="col s12 m6 l3">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/shovel.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Lawineschep<i class="material-icons right">info</i></span>
-                    <p><b>&euro;0,50</b> per dag</p>
-                    <p>&nbsp;</p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Aluminium schep<i class="material-icons right">close</i></span>
-                    <ul class="collection with-header">
-                        <li class="collection-header"><h5>Eigenschappen</h5></li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Uitgebreide check bij opstarten</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Richting en afstand indicatie</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> 3 antenne systeem voor exact zoeken</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Intelligente zender: maximale ondersteuning tijdens zenden & IPROBE support</li>
-                        <li class="collection-item"><p><b>&euro;0,50</b> per dag</p></li>
-                    </ul>
-                </div>
-                <div class="meenemen center">
-                    <div class="selector white-text">
-                        <i data-rental="shovel" class=" material-icons prefix shoppingcart blue-text teal-text lighten-2 yes">shopping_cart</i>
-                    </div>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product sonde_card">
-        <div class="col s12 m6 l3">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/sonde.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Sondeerstok<i class="material-icons right">info</i></span>
-                    <p><b>&euro;0,50</b> per dag</p>
-                    <p>&nbsp;</p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Aluminium sonde<i class="material-icons right">close</i></span>
-                    <ul class="collection with-header">
-                        <li class="collection-header"><h5>Eigenschappen</h5></li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Uitgebreide check bij opstarten</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Richting en afstand indicatie</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> 3 antenne systeem voor exact zoeken</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Intelligente zender: maximale ondersteuning tijdens zenden & IPROBE support</li>
-                        <li class="collection-item"><p><b>&euro;0,50</b> per dag</p></li>
-                    </ul>
-                </div>
-                <div class="meenemen center">
-                    <div class="selector white-text">
-                        <i data-rental="sonde" class="material-icons prefix shoppingcart blue-text teal-text lighten-2 yes">shopping_cart</i>
-                    </div>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="product bag_card">
-        <div class="col s12 m6 l3">
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="img/bag.jpg">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">Gearbag<i class="material-icons right">info</i></span>
-                    <p><b>&euro;0,50</b> per dag</p>
-                    <p>Gratis als package deal!</p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">Burton rugzak<i class="material-icons right">close</i></span>
-                    <ul class="collection with-header">
-                        <li class="collection-header"><h5>Eigenschappen</h5></li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Uitgebreide check bij opstarten</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Richting en afstand indicatie</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> 3 antenne systeem voor exact zoeken</li>
-                        <li class="collection-item"><i class="material-icons left">done</i> Intelligente zender: maximale ondersteuning tijdens zenden & IPROBE support</li>
-                        <li class="collection-item"><p><b>&euro;0,50</b> per dag</p></li>
-                    </ul>
-                </div>
-                <div class="meenemen center">
-                    <div class="selector white-text">
-                        <i data-rental="bag" class="material-icons prefix shoppingcart blue-text teal-text lighten-2 yes">shopping_cart</i>
-                    </div>
-                    <br>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    <% for(var i = 0; i < producten.length; i++){ %>
+        <%- include('product.template.ejs', producten[i]); %>
+    <% } %>
+
 </div>
