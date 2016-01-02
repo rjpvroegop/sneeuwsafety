@@ -28,9 +28,30 @@ var bedragen = {
     bag:0.5,
     send:7.5
 };
+var startPicker = $('.datepicker_start').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    min: new Date(Date.now()),
+    onClose: function() {
+        if(new Date(endPicker.get('select', 'yyyy/mm/dd')) < new Date(startPicker.get('select', 'yyyy/mm/dd'))) {
+            endPicker.set('select', startPicker.get('select'));
+            endPicker.set('min', startPicker.get('select'));
+        }
+        calculate_days();
+    }
+});
 
-var startPicker = startDatepicker.pickadate('picker')
-var endPicker = endDatePicker.pickadate('picker')
+var endPicker = $('.datepicker_end').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    min: new Date(startPicker.get('select', 'yyyy/mm/dd')),
+    onClose: function() {
+        calculate_days();
+    }
+});
+
+startPicker = startPicker.pickadate('picker');
+endPicker = endPicker.pickadate('picker');
 
 function initshop(){
     var now = new Date(Date.now);
@@ -42,10 +63,6 @@ function initshop(){
     $('#bedankt').hide();
     showorhideshop();
     update_shop();
-
-    $('.picker__holder').click(function(){
-        calculate_days();
-    });
 
     $('.no').click(function(){
         deactivate($(this));
