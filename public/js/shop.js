@@ -10,7 +10,9 @@ var discount = false;
 var startdatum = '';
 var einddatum = '';
 var dagen = 1;
-var tweePers = $('#personen').prop('checked');
+var personen = $('#personen').prop('checked') ? 2 : 1;
+
+$('.personen .right').html(personen)
 
 var naam = '';
 var straat = '';
@@ -35,8 +37,8 @@ var startPicker = $('.datepicker_start').pickadate({
     onClose: function() {
         if(new Date(endPicker.get('select', 'yyyy/mm/dd')) < new Date(startPicker.get('select', 'yyyy/mm/dd'))) {
             endPicker.set('select', startPicker.get('select'));
-            endPicker.set('min', startPicker.get('select'));
         }
+        endPicker.set('min', startPicker.get('select'));
         calculate_days();
     }
 });
@@ -73,8 +75,8 @@ function initshop(){
     });
 
     $('#personen').click(function() {
-        tweePers = $(this).prop('checked');
-        $('.personen .right').html(tweePers ? 2 : 1)
+        personen = $(this).prop('checked') ? 2 : 1;
+        $('.personen .right').html(personen)
         update_shop();
     });
 }
@@ -135,7 +137,7 @@ function deactivate(selector){
 
 function update_shop(selector){
 
-    $('.discount .right').html('-&euro;' + (0.5 * (tweePers ? 2 : 1) * dagen).toFixed(2));
+    $('.discount .right').html('-&euro;' + (0.5 * (personen) * dagen).toFixed(2));
     if (pieper && shovel && bag && sonde){
         $('.discount').slideDown();
     } else {
@@ -145,25 +147,25 @@ function update_shop(selector){
     updateShoppingcartIcon(selector, true);
 
     if(pieper) {
-        $('.beacon .right').html('&euro;' + (dagen * bedragen.pieper * (tweePers ? 2 : 1)).toFixed(2));
+        $('.beacon .right').html('&euro;' + (dagen * bedragen.pieper * (personen)).toFixed(2));
     }
     else{
         $('.beacon .right').html('&euro;0');
 }
     if(shovel){
-        $('.shovel .right').html('&euro;' + (dagen * bedragen.shovel * (tweePers ? 2 : 1)).toFixed(2));
+        $('.shovel .right').html('&euro;' + (dagen * bedragen.shovel * (personen)).toFixed(2));
     }
     else{
         $('.shovel .right').html('&euro;0');
     }
     if(sonde){
-        $('.sondeerstok .right').html('&euro;' + (dagen * bedragen.sonde * (tweePers ? 2 : 1)).toFixed(2));
+        $('.sondeerstok .right').html('&euro;' + (dagen * bedragen.sonde * (personen)).toFixed(2));
     }
     else{
         $('.sondeerstok .right').html('&euro;0');
     }
     if(bag){
-        $('.backpack .right').html('&euro;' + (dagen * bedragen.bag * (tweePers ? 2 : 1)).toFixed(2));
+        $('.backpack .right').html('&euro;' + (dagen * bedragen.bag * (personen)).toFixed(2));
 }
     else {
         $('.backpack .right').html('&euro;0');
@@ -220,13 +222,13 @@ var subtotaal = (function(){
         (sonde ? bedragen.sonde * dagen : 0) +
         (bag ? bedragen.bag * dagen : 0);
 
-    return value * (tweePers ? 2 : 1);
+    return value * (personen);
 });
 
 var totaal = (function(){
     var value = subtotaal() +
         (pieper || shovel || sonde || bag ? bedragen.send : 0) +
-        (discount ? (-0.5 * (tweePers ? 2 : 1) * dagen) : 0);
+        (discount ? (-0.5 * (personen) * dagen) : 0);
 
     return value;
 });
@@ -237,7 +239,7 @@ var borg = (function(){
         (shovel ? 25 : 0) +
         (sonde ? 25 : 0);
 
-    return value * (tweePers ? 2 : 1);
+    return value * (personen);
 });
 
 
@@ -266,7 +268,7 @@ var sendForm = (function(){
         naam:naam, email:mail, telefoon:telefoon,
         straat:straat, postcode:postcode, huisnummer:huisnummer,
         toevoeging:toevoeging, plaats:plaats, schep:shovel, pieper:pieper, sonde:sonde,
-        tas:bag, start:startdatum, eind:einddatum, tweePers:(tweePers ? 2 : 1)
+        tas:bag, start:startdatum, eind:einddatum, tweePers:(personen)
     };
 
     mail || $('#orderemail').css({background:'pink'});
@@ -286,7 +288,7 @@ var sendForm = (function(){
             shovel || sonde || pieper)) {
         $.ajax({
             method: "GET",
-            url: "http://127.0.0.1:3000/order",
+            url: "http://83.81.4.70/order",
             dataType: "jsonp",
             data: data
         }).done(function (data) {

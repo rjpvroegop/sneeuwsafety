@@ -30,7 +30,7 @@ var test = function(s){
 var sender = function(){
     $.ajax({
         method: "GET",
-        url: "http://127.0.0.1:3000/contact",
+        url: "http://83.81.4.70/contact",
         dataType: "jsonp",
         data: {
             name: sname.val(),

@@ -61,6 +61,7 @@
 
 .datums button, .gegevens button {
     margin-top:20px;
+    z-index:0;
 }
 
 .yes {
