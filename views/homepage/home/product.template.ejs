@@ -1,16 +1,25 @@
 <div class="product <%= data_rental %>_card">
-    <div class="col s12 m6 l3">
+    <div class="col s10 m6 l3">
         <div class="card">
             <div class="card-image waves-effect waves-block waves-light">
                 <img class="activator" src="<%= product_image %>">
             </div>
             <div class="card-content">
-                <span class="card-title activator grey-text text-darken-4"><%= product_naam %><i class="material-icons right">info</i></span>
-                <p><b>&euro;<span class="product_price"><%= product_prijs %></span></b> per dag</p>
-                <p><%= product_aanbieding %>&nbsp;</p>
+                <span class="card-title activator grey-text text-darken-4">
+                    <%= product_naam %>
+                    <i class="material-icons right">info</i></span>
+                <p>
+                    <b>&euro;<span class="product_price"><%= product_prijs %></span></b> per dag
+                </p>
+                <p class="deal">
+                    <%= product_aanbieding %>&nbsp;
+                </p>
             </div>
             <div class="card-reveal">
-                <span class="card-title grey-text text-darken-4"><%= product_naam %><i class="material-icons right">close</i></span>
+                <span class="card-title grey-text text-darken-4 clearfix">
+                    <%= product_naam %><i class="material-icons right">close</i>
+                </span>
+                <div class="clearfix">&nbsp;</div>
                 <ul class="collection with-header">
                     <li class="collection-header"><h5>Eigenschappen</h5></li>
                     <% for(var i=0; i<eigenschappen.length; i++) { %>

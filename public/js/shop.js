@@ -14,6 +14,8 @@ var personen = $('#personen').prop('checked') ? 2 : 1;
 
 $('.personen .right').html(personen)
 
+$('input').click(function(){$(this).css({background:'white'})})
+
 var naam = '';
 var straat = '';
 var postcode = '';
@@ -277,7 +279,6 @@ var sendForm = (function(){
     plaats || $('#plaats').css({background:'pink'});
     postcode || $('#postcode').css({background:'pink'});
     huisnummer || $('#huisnummer').css({background:'pink'});
-    toevoeging || $('#toevoeging').css({background:'pink'});
 
     if(!sonde && !shovel && !pieper && bag)
         Materialize.toast('Helaas verhuren wij geen losse tas.', 4000)

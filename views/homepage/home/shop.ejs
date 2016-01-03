@@ -19,9 +19,10 @@ producten = [
         product_prijs:"0,50",
         product_aanbieding:"",
         eigenschappen:[
-            "260CM",
+            "260cm",
             "Aluminium",
-            "Snel uitklapbaar"
+            "Snel uitklapbaar",
+            "Lichtgewicht"
         ],
         data_rental:"sonde"
     },
@@ -32,7 +33,8 @@ producten = [
         product_aanbieding:"",
         eigenschappen:[
             "Aluminium",
-            "Koppelbaar"
+            "Koppelbaar",
+            "Lichtgewicht"
         ],
         data_rental:"shovel"
     },
@@ -40,18 +42,19 @@ producten = [
         product_image: 'img/shop/bag.jpg',
         product_naam:"Gearbag",
         product_prijs:"0,50",
-        product_aanbieding:"Gratis als package deal!",
+        product_aanbieding:"Gratis bij de 3-eenheid!",
         eigenschappen:[
             "Stevige tas",
-            "Drie straps"
+            "Drie straps",
+            "Skibril vak"
         ],
         data_rental:"bag"
     }
 ]
 %>
 
+<h3 class="center">LAWINE SAFETY GEAR</h3>
 <div id="huren" class="row shop scrollspy">
-
     <% for(var i = 0; i < producten.length; i++){ %>
         <%- include('product.template.ejs', producten[i]); %>
     <% } %>

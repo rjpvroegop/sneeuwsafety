@@ -4,7 +4,19 @@ body {
 }
 
 .parallax-container {
-    height: 400px;
+    height: 350px;
+}
+
+@media only screen and (min-width: 700px) and (max-width: 1100px) {
+    .parallax-container {
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 699px) {
+    .parallax-container {
+        height: 300px;
+    }
 }
 
 @media (min-width: 992px) {
@@ -35,5 +47,25 @@ body {
     .contact_sidebar {
         position: absolute;
         bottom: 100px;
+    }
+}
+
+.collection.with-header .collection-item {
+    padding-left:0;
+}
+
+.collection.with-header .collection-header{
+    padding-left:5px;
+}
+
+@media (max-width: 500px) {
+    .collection.with-header .collection-header h5 {
+        font-size: 1.3rem;
+    }
+}
+
+@media (min-width:380px) and (max-width: 420px) {
+    .collection.with-header .collection-item i {
+        display:none;
     }
 }
