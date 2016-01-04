@@ -69,3 +69,8 @@ body {
         display:none;
     }
 }
+
+#waarom .collapsible-body p {
+    padding:0.5rem;
+    color:#333;
+}
