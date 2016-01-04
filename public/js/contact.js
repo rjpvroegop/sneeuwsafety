@@ -10,7 +10,6 @@ $(document).ready(function(){
         send = true;
 
         test(sname);
-        test(stel);
         test(smail);
         test(smes);
 
