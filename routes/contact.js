@@ -31,7 +31,7 @@ function save(data){
 // setup e-mail data with unicode symbols
     var mailOptions = {
         from: 'randy vroegop <info@sneeuwsafety.nl>', // sender address
-        to: 'rjp.vroegop@gmail.com', // list of receivers
+        to: 'rjp.vroegop@gmail.com, tomdelno@gmail.com', // list of receivers
         subject: 'Contactformulier sneeuwsafety', // Subject line
         html: email(data) // plaintext body
     };
