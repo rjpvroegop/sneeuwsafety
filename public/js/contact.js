@@ -38,7 +38,7 @@ var sender = function(){
             mes: smes.val()
         }
     })  .done(function(data) {
-        console.log(data)
+        console.log(data);
         sendSucceeded();
     })
         .fail(function(data) {

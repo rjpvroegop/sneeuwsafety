@@ -78,3 +78,28 @@ body {
 #contact {
     overflow:scroll;
 }
+
+#logo-container img {
+    margin-top:20px;
+}
+
+li.no-bg.logo:hover{
+    background-color:rgba(0, 0, 0, 0.3)
+}
+
+h2, h3 {
+    font-weight:200;
+    color:rgba(255, 102, 51, 0.8)
+}
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-floating) {
+    color:rgba(255, 120, 60, 1.0)
+}
+
+.house-orange-text {
+    color:rgba(255, 102, 51, 0.8)
+}
+
+.house-orange {
+    color:rgba(255, 102, 51, 0.8)
+}
