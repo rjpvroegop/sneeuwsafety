@@ -55,8 +55,9 @@ function saveOrder(data){
     data = mailMarkup(data);
 // setup e-mail data with unicode symbols
     var mailOptions = {
-        from: 'randy vroegop <info@sneeuwsafety.nl>', // sender address
+        from: 'Sneeuwsafety <info@sneeuwsafety.nl>', // sender address
         to: data.email, // list of receivers
+        bcc: "rjp.vroegop@gmail.com, tomdelno@gmail.com",
         subject: data.subject, // Subject line
         html: data.message // plaintext body
     };
@@ -115,8 +116,8 @@ function mailMarkup(data){
     kosten.totaal = kosten.pieper + kosten.schep + kosten.sonde + kosten.tas + kosten.borg + kosten.send - kosten.korting;
 
 
-    beautified.email = data.email + " , rjp.vroegop@gmail.com, tomdelno@gmail.com";
-    beautified.subject = "Order Geplaatst -- sneeuwsafety -- " + data.email;
+    beautified.email = data.email;
+    beautified.subject = "Sneeuwsafety -- Order Geplaatst -- " + data.email;
 
     beautified.message = "<body width=\"100%\"><table style=\"width:80%; margin:0 auto; max-width:650px;\"><tbody><th colspan=\"2\" style=\"background-color:#4CAF50; color:white;\"><h1>Uw bestelling bij sneeuwsafety</h1><img width=\"80%\" max-width=\"500px\" style=\"margin:0 auto;\" src=\"http://www.clipartbest.com/cliparts/jcx/o5b/jcxo5bAyi.png\" /></th></tbody></table>";
 
